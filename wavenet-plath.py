@@ -52,7 +52,7 @@ def get_dataset(saveto='sounds', convert_mp3_to_16khzwav=False):
         wavs = glob('{}/**/*.mp3'.format(saveto), recursive=True)
         for wav_i in wavs:
             subprocess.check_call(
-                ['ffmpeg', '-i', wav_i, '-f', 'wav', '-ar', '16000', '-y', '%s.16khz.wav' % wav_i])
+                ['ffmpeg', '-i', wav_i, '-f', 'wav', '-ac', '1', '-ar', '16000', '-y', '%s.16khz.wav' % wav_i])
 
     wavs = glob('{}/**/*.16khz.wav'.format(saveto), recursive=True)
 
