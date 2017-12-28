@@ -25,8 +25,12 @@ import os
 import sys
 import subprocess
 from glob import glob
+import numpy as np
 import tensorflow as tf
 from cadl import wavenet, vctk
+from cadl import wavenet_utils as wnu
+from cadl.utils import sample_categorical
+from scipy.io import wavfile
 
 def get_dataset(saveto='sounds', convert_mp3_to_16khzwav=False):
     """Convert MP3 files in 'saveto' directory to wav files.
@@ -140,18 +144,18 @@ def synthesize():
     n_hidden = 48
     n_skip = 384
     total_length = 16000
-    sequence_length = get_sequence_length(n_stages, n_layers_per_stage)
+    sequence_length = wavenet.get_sequence_length(n_stages, n_layers_per_stage)
     prime_length = sequence_length
     ckpt_path = 'plath-wavenet/wavenet_filterlen{}_batchsize{}_sequencelen{}_stages{}_layers{}_hidden{}_skips{}/'.format(
         filter_length, batch_size, sequence_length, n_stages,
         n_layers_per_stage, n_hidden, n_skip)
 
-    dataset = librispeech.get_dataset()
+    dataset = get_dataset()
     batch = next(
-        librispeech.batch_generator(dataset, batch_size, prime_length))[0]
+        vctk.batch_generator(dataset, batch_size, prime_length))[0]
 
     sess = tf.Session()
-    net = create_wavenet(
+    net = wavenet.create_wavenet(
         batch_size=batch_size,
         filter_length=filter_length,
         n_hidden=n_hidden,
