@@ -130,5 +130,65 @@ def train():
                 it_i += 1
     return loss
 
+def synthesize():
+    """Summary
+    """
+    batch_size = 2
+    filter_length = 2
+    n_stages = 7
+    n_layers_per_stage = 9
+    n_hidden = 48
+    n_skip = 384
+    total_length = 16000
+    sequence_length = get_sequence_length(n_stages, n_layers_per_stage)
+    prime_length = sequence_length
+    ckpt_path = 'plath-wavenet/wavenet_filterlen{}_batchsize{}_sequencelen{}_stages{}_layers{}_hidden{}_skips{}/'.format(
+        filter_length, batch_size, sequence_length, n_stages,
+        n_layers_per_stage, n_hidden, n_skip)
+
+    dataset = librispeech.get_dataset()
+    batch = next(
+        librispeech.batch_generator(dataset, batch_size, prime_length))[0]
+
+    sess = tf.Session()
+    net = create_wavenet(
+        batch_size=batch_size,
+        filter_length=filter_length,
+        n_hidden=n_hidden,
+        n_skip=n_skip,
+        n_layers_per_stage=n_layers_per_stage,
+        n_stages=n_stages,
+        shift=False)
+    init_op = tf.group(tf.global_variables_initializer(),
+                       tf.local_variables_initializer())
+    sess.run(init_op)
+    saver = tf.train.Saver()
+    if tf.train.latest_checkpoint(ckpt_path) is not None:
+        saver.restore(sess, tf.train.latest_checkpoint(ckpt_path))
+    else:
+        print('Could not find checkpoint')
+
+    synth = np.zeros([batch_size, total_length], dtype=np.float32)
+    synth[:, :prime_length] = batch
+
+    print('Synthesize...')
+    for sample_i in range(0, total_length - prime_length):
+        print('{}/{}/{}'.format(sample_i, prime_length, total_length), end='\r')
+        probs = sess.run(
+            net["probs"],
+            feed_dict={net["X"]: synth[:, sample_i:sample_i + sequence_length]})
+        idxs = sample_categorical(probs)
+        idxs = idxs.reshape((batch_size, sequence_length))
+        if sample_i == 0:
+            audio = wnu.inv_mu_law_numpy(idxs - 128)
+            synth[:, :prime_length] = audio
+        else:
+            audio = wnu.inv_mu_law_numpy(idxs[:, -1] - 128)
+            synth[:, prime_length + sample_i] = audio
+
+    for i in range(batch_size):
+        wavfile.write('synthesis-{}.wav'.format(i), 16000, synth[i])
+
+
 if __name__ == '__main__':
     train()
