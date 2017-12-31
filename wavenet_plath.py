@@ -45,8 +45,7 @@ def get_dataset(saveto='sounds', convert_mp3_to_16khzwav=False):
         Description
     Returns
     -------
-    TYPE
-        pat
+        dataset
     """
     if not os.path.exists(saveto):
         sys.exit("Error: '" + saveto + "' folder does not exist")
@@ -76,8 +75,7 @@ def train():
     """Train WaveNet on sound files
     Returns
     -------
-    TYPE
-        Loss
+        loss
     """    
     batch_size = 2
     filter_length = 2
@@ -135,7 +133,7 @@ def train():
     return loss
 
 def synthesize():
-    """Summary
+    """Synthesize 10 second wav files
     """
     batch_size = 2
     filter_length = 2
