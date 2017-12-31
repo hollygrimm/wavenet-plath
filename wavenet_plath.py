@@ -143,7 +143,7 @@ def synthesize():
     n_layers_per_stage = 9
     n_hidden = 48
     n_skip = 384
-    total_length = 16000
+    total_length = 160000
     sequence_length = wavenet.get_sequence_length(n_stages, n_layers_per_stage)
     prime_length = sequence_length
     ckpt_path = 'plath-wavenet/wavenet_filterlen{}_batchsize{}_sequencelen{}_stages{}_layers{}_hidden{}_skips{}/'.format(
