@@ -51,7 +51,7 @@ Execute
 
 
 ## Synthesizing
-Generate a 10-second wav file using the trained model
+Generate a 10-second wav file using the trained model.
 
 ```
 import wavenet_plath
