@@ -4,7 +4,7 @@ Generate raw audio waveforms using WaveNet, a deep neural network.
 
 ## Dependencies
 
-1. [tensorflow](https://www.tensorflow.org/install/)
+1. [tensorflow 1.4.1](https://www.tensorflow.org/install/)
 1. [cadl](https://github.com/pkmital/pycadl)
 
 ## Dataset
