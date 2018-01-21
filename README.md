@@ -57,3 +57,7 @@ Generate a 10-second wav file using the trained model.
 import wavenet_plath
 wavenet_plath.synthesize()
 ```
+
+## Author
+- Author: [@pkmital](https://github.com/pkmital)
+- Contributor: [@hollygrimm](https://github.com/hollygrimm)
