@@ -6,3 +6,5 @@ output/
 plath-wavenet/
 # Byte-compiled / optimized / DLL files
 __pycache__/
+synthesis-0.wav
+synthesis-1.wav
