@@ -49,6 +49,8 @@ Execute
 
 ```tensorboard --logdir=.``` to view loss chart and audio synthesis
 
+![loss chart](chart_loss_52900_2018-03-29.png "Loss chart after 529000 steps of training")
+
 
 ## Synthesizing
 Generate a 10-second wav file using the trained model.
@@ -57,6 +59,8 @@ Generate a 10-second wav file using the trained model.
 import wavenet_plath
 wavenet_plath.synthesize()
 ```
+
+[Listen to an MP3](synthesis_52900_2018-03-29.mp3) generated after 529000 steps of training
 
 ## Author
 - Author: [@pkmital](https://github.com/pkmital)
