@@ -60,7 +60,7 @@ import wavenet_plath
 wavenet_plath.synthesize()
 ```
 
-[Listen to an MP3](synthesis_52900_2018-03-29.mp3) generated after 529000 steps of training. WaveNet was trained without the text sequences, so the generated speech is gibberish!
+[Listen to an MP3](synthesis_52900_2018-03-29.mp3) or [view an MP4 Video](synthesis_52900_2018-03-29.mp4) generated after 529000 steps of training. WaveNet was trained without the text sequences, so the generated speech is gibberish!
 
 ## Author
 - Author: [@pkmital](https://github.com/pkmital)
