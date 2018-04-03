@@ -31,6 +31,8 @@ Training was done using short sequences, so I used Audacity to break the ~30 min
   * Format: MP3
   * Numbering after File name prefix: *CHAPTERNAME*
 
+[MP4 video on using Audacity to split into clips](https://raw.githubusercontent.com/hollygrimm/wavenet-plath/master/split_mp3_clips.mp4)
+
 Place the MP3 clips under sounds/CHAPTERNAME. Listen to clips below 30k in file size, and delete any clips that are silent.
 
 
